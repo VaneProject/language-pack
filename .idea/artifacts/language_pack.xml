@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="language-pack">
+    <output-path>$PROJECT_DIR$/out/artifacts/language_pack</output-path>
+    <root id="archive" name="language-pack.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
