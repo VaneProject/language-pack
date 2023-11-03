@@ -1,15 +1,40 @@
-import lombok.RequiredArgsConstructor;
-
 import java.util.Locale;
 import java.util.Objects;
 
-@RequiredArgsConstructor
+/**
+ * country list
+ */
 public enum Country {
-    EN, KO, JP,
-    ZH, DE, RU;
+    /**
+     * English
+     */
+    EN,
+    /**
+     * Korean
+     */
+    KO,
+    /**
+     * Japanese
+     */
+    JP,
+    /**
+     * Chinese
+     */
+    ZH,
+    /**
+     * German
+     */
+    DE,
+    /**
+     * Russian
+     */
+    RU;
 
     private final Locale locale = new Locale(name());
 
+    /**
+     * @return get language type
+     */
     public String getLanguage() {
         return locale.getLanguage();
     }

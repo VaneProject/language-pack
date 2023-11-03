@@ -1,16 +1,26 @@
 import java.util.*;
 import java.util.List;
 
+/**
+ * language list pack
+ */
 public class LanguageList implements List<String> {
     private final List<List<String>> list = new ArrayList<>();
     private final Country[] countries;
 
+    /**
+     * @param countries countries
+     */
     public LanguageList(Country... countries) {
         if (countries.length < 1) throw new IllegalArgumentException("length size error 1 > " + countries.length);
         this.countries = countries;
         for (int i = 0; i < countries.length; i++) list.add(new ArrayList<>());
     }
 
+    /**
+     * @param country country
+     * @return get country index
+     */
     private int getIndex(Country country) {
         for (int i = 0; i < countries.length; i++) {
             if (countries[i] == country) return i;
@@ -18,6 +28,9 @@ public class LanguageList implements List<String> {
         throw new RuntimeException("not find Country: " + country);
     }
 
+    /**
+     * @return get country string list
+     */
     private List<String> getList() {
         int i = getIndex(Country.getDefaultCountry());
         return list.get(i);
@@ -53,6 +66,10 @@ public class LanguageList implements List<String> {
         return getList().toArray(a);
     }
 
+    /**
+     * @param s s size is language size
+     * @return finish add
+     */
     public boolean add(String... s) {
         if (s.length != countries.length)
             throw new IllegalArgumentException("do not match size: " + s.length + " != " + countries.length);
@@ -65,6 +82,10 @@ public class LanguageList implements List<String> {
         throw new RuntimeException("do not use 'add' method");
     }
 
+    /**
+     * @param s remove language
+     * @return finish is true
+     */
     public boolean remove(String... s) {
         if (s.length != countries.length)
             throw new IllegalArgumentException("do not match size: " + s.length + " != " + countries.length);
@@ -92,6 +113,11 @@ public class LanguageList implements List<String> {
         throw new RuntimeException("do not use 'removeAll' method");
     }
 
+    /**
+     * @param index set index
+     * @param s set texts
+     * @return finish is true
+     */
     public boolean set(int index, String... s) {
         if (s.length != countries.length)
             throw new IllegalArgumentException("do not match size: " + s.length + " != " + countries.length);
@@ -104,6 +130,11 @@ public class LanguageList implements List<String> {
         throw new RuntimeException("do not use 'set' method");
     }
 
+    /**
+     * @param index add index
+     * @param s add texts
+     * @return finish true
+     */
     public boolean add(int index, String... s) {
         if (s.length != countries.length)
             throw new IllegalArgumentException("do not match size: " + s.length + " != " + countries.length);

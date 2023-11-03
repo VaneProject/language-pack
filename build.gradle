@@ -1,0 +1,86 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+group = "io.github.vaneproject"
+archivesBaseName = "languagepack"
+version = "1.0.0"
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name = 'language-pack'
+                packaging = 'jar'
+                description = 'Java project that manages the language'
+                url = 'https://github.com/VaneProject/language-pack'
+
+                scm {
+                    connection = 'scm:git:git://github.com/VaneProject/language-pack.git'
+                    developerConnection = 'scm:git:ssh://github.com:VaneProject/language-pack.git'
+                    url = 'https://github.com/VaneProject/language-pack/tree/master'
+                }
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/VaneProject/language-pack/blob/master/LICENSE'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name = 'PersesTitan'
+                        email = 'ToramPersesTitan@gmail.com'
+                        organization = "VaneProject"
+                        organizationUrl = 'https://github.com/VaneProject'
+                    }
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+}
